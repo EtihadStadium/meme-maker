@@ -18,3 +18,6 @@ canvas.addEventListener("mousedown", () => {
 canvas.addEventListener("mouseup", () => {
     isPainting = false;
 });
+canvas.addEventListener("mouseleave", () => {
+    isPainting = false;
+});
