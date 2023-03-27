@@ -2,6 +2,7 @@ const canvas = document.querySelector("canvas");
 const lineWidth = document.querySelector("input");
 const p = document.querySelector("p");
 const color = document.getElementById("color");
+const colorOption = Array.from(document.getElementsByClassName("color-option"));
 const ctx = canvas.getContext("2d");
 let isPainting = false;
 canvas.width = 800;
@@ -32,4 +33,12 @@ lineWidth.addEventListener("change", (event) => {
 color.addEventListener("change", (event) => {
     ctx.strokeStyle = event.target.value;
     ctx.fillStyle = event.target.value;
+});
+colorOption.forEach((color) => {
+    color.addEventListener("click", (event) => {
+        const colorValue = event.target.dataset.color;
+        ctx.strokeStyle = colorValue;
+        ctx.fillStyle = colorValue;
+        color.value = colorValue;
+    });
 });
