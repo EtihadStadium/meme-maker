@@ -3,8 +3,10 @@ const lineWidth = document.querySelector("input");
 const p = document.querySelector("p");
 const color = document.getElementById("color");
 const colorOption = Array.from(document.getElementsByClassName("color-option"));
+const modeBtn = document.getElementById("mode-btn");
 const ctx = canvas.getContext("2d");
 let isPainting = false;
+let isFilling = false;
 canvas.width = 800;
 canvas.height = 800;
 ctx.lineWidth = lineWidth.value;
@@ -26,6 +28,11 @@ canvas.addEventListener("mousedown", () => {
 });
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
+canvas.addEventListener("click", () => {
+    if (isFilling) {
+        ctx.fillRect(0, 0, 800, 800);
+    }
+});
 lineWidth.addEventListener("change", (event) => {
     ctx.lineWidth = event.target.value;
     p.innerText = lineWidth.value;
@@ -41,4 +48,13 @@ colorOption.forEach((color) => {
         ctx.fillStyle = colorValue;
         color.value = colorValue;
     });
+});
+modeBtn.addEventListener("click", () => {
+    if (isFilling) {
+        isFilling = false;
+        modeBtn.innerText = "Fill";
+    } else {
+        isFilling = true;
+        modeBtn.innerText = "Draw";
+    }
 });
