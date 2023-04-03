@@ -8,6 +8,7 @@ const destroyBtn = document.getElementById("destroy-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const fileInput = document.getElementById("file");
 const textInput = document.getElementById("text");
+const saveBtn = document.getElementById("save");
 const ctx = canvas.getContext("2d");
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800;
@@ -45,7 +46,7 @@ canvas.addEventListener("dblclick", (event) => {
     if (text !== "") {
         ctx.save();
         ctx.lineWidth = 1;
-        ctx.font = "50px 'Press Start 2P'";
+        ctx.font = "50px sans-serif";
         ctx.fillText(text, event.offsetX, event.offsetY);
         ctx.restore();
     }
@@ -93,4 +94,15 @@ fileInput.addEventListener("change", (event) => {
         ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         fileInput.value = null;
     };
+});
+saveBtn.addEventListener("click", () => {
+    const url = canvas.toDataURL();
+    const a = document.createElement("a");
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const today = String(date.getDate()).padStart(2, "0");
+    a.href = url;
+    a.download = `${year}-${month}-${today}.png`;
+    a.click();
 });
