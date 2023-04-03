@@ -1,6 +1,5 @@
 const canvas = document.querySelector("canvas");
-const lineWidth = document.querySelector("input");
-const p = document.querySelector("p");
+const lineWidth = document.getElementById("line-width");
 const color = document.getElementById("color");
 const colorOption = Array.from(document.getElementsByClassName("color-option"));
 const modeBtn = document.getElementById("mode-btn");
@@ -18,7 +17,6 @@ canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = lineWidth.value;
 ctx.lineCap = "round";
-p.innerText = lineWidth.value;
 function cancelPainting() {
     isPainting = false;
     ctx.beginPath();
@@ -53,7 +51,6 @@ canvas.addEventListener("dblclick", (event) => {
 });
 lineWidth.addEventListener("change", (event) => {
     ctx.lineWidth = event.target.value;
-    p.innerText = lineWidth.value;
 });
 color.addEventListener("change", (event) => {
     ctx.strokeStyle = event.target.value;
@@ -70,10 +67,10 @@ colorOption.forEach((color) => {
 modeBtn.addEventListener("click", () => {
     if (isFilling) {
         isFilling = false;
-        modeBtn.innerText = "Fill";
+        modeBtn.innerText = "🎨 Fill";
     } else {
         isFilling = true;
-        modeBtn.innerText = "Draw";
+        modeBtn.innerText = "🖌️ Draw";
     }
 });
 destroyBtn.addEventListener("click", () => {
@@ -83,7 +80,7 @@ destroyBtn.addEventListener("click", () => {
 eraserBtn.addEventListener("click", () => {
     ctx.strokeStyle = "white";
     isFilling = false;
-    modeBtn.innerText = "Fill";
+    modeBtn.innerText = "🎨 Fill";
 });
 fileInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
